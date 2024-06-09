@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.piechartt;
+package com.mycompany.piechart;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -13,9 +13,9 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
 import java.awt.*;
 
-public class PieChartt extends JFrame {
+public class PieChart extends JFrame {
 
-    public PieChartt() {
+    public PieChart() {
         // Create dataset
         DefaultPieDataset dataset = createDataset();
 
@@ -49,7 +49,7 @@ public class PieChartt extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PieChartt example = new PieChartt();
+            PieChart example = new PieChart();
             example.setSize(800, 600);
             example.setLocationRelativeTo(null);
             example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
