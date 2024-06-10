@@ -64,8 +64,9 @@ public class MainPage extends javax.swing.JFrame {
         updateBtn = new javax.swing.JButton();
         producLabel = new javax.swing.JLabel();
         wasteLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        prodValue = new javax.swing.JLabel();
+        wasteValue = new javax.swing.JLabel();
+        timeTimer = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,11 +140,14 @@ public class MainPage extends javax.swing.JFrame {
         wasteLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         wasteLabel.setText("% Waste");
 
-        jLabel1.setText("70.5");
-        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 2, true));
+        prodValue.setText("70.5");
+        prodValue.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 2, true));
 
-        jLabel2.setText("29.5");
-        jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 2, true));
+        wasteValue.setText("29.5");
+        wasteValue.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 2, true));
+
+        timeTimer.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        timeTimer.setText("90:00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,10 +159,13 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prodLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(prodLabel)
+                                .addGap(179, 179, 179)
+                                .addComponent(timeTimer))
                             .addComponent(prodStop)
                             .addComponent(prodStart))
-                        .addContainerGap(606, Short.MAX_VALUE))
+                        .addContainerGap(309, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -175,13 +182,16 @@ public class MainPage extends javax.swing.JFrame {
                                 .addComponent(goBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(495, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(doneByLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(timeLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(producLabel)
-                            .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(doneByLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(timeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(producLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(prodValue)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
@@ -189,7 +199,7 @@ public class MainPage extends javax.swing.JFrame {
                                 .addGap(54, 54, 54))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(54, 54, 54)
-                                .addComponent(jLabel2)
+                                .addComponent(wasteValue)
                                 .addGap(64, 64, 64))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,10 +222,12 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(wasteLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(prodValue)
+                    .addComponent(wasteValue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(prodLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prodLabel)
+                    .addComponent(timeTimer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(prodStart)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,7 +239,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(stopLabel)
                     .addComponent(stopTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stopBtn))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -379,11 +391,10 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel doneByLabel;
     private javax.swing.JButton goBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel prodLabel;
     private javax.swing.JButton prodStart;
     private javax.swing.JButton prodStop;
+    private javax.swing.JLabel prodValue;
     private javax.swing.JLabel producLabel;
     private javax.swing.JLabel startLabel;
     private javax.swing.JFormattedTextField startTime;
@@ -391,7 +402,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel stopLabel;
     private javax.swing.JFormattedTextField stopTime;
     private javax.swing.JLabel timeLabel;
+    private javax.swing.JLabel timeTimer;
     private javax.swing.JButton updateBtn;
     private javax.swing.JLabel wasteLabel;
+    private javax.swing.JLabel wasteValue;
     // End of variables declaration//GEN-END:variables
 }
