@@ -6,6 +6,7 @@ package tugaspbo;
 
 import java.time.LocalTime;
 import javax.swing.*;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static tugaspbo.SwingHelper.*;
@@ -26,6 +27,9 @@ public class PerekamWaktuKerja implements BisaDiatur {
     private JSpinner menitSelesai;
     private JButton tombolMulaiKerja;
     private JButton tombolSelesaiKerja;
+    private JLabel telahBerlalu;
+    private JLabel sisa;
+    private int detikMulai = 0;
 
     public PerekamWaktuKerja(
             Produktivitas app,
@@ -38,7 +42,9 @@ public class PerekamWaktuKerja implements BisaDiatur {
             JSpinner jamSelesai,
             JSpinner menitSelesai,
             JButton tombolMulaiKerja,
-            JButton tombolSelesaiKerja
+            JButton tombolSelesaiKerja,
+            JLabel telahBerlalu,
+            JLabel sisa
     ) {
         this.app = app;
         this.targetJamMulai = targetJamMulai;
@@ -51,6 +57,8 @@ public class PerekamWaktuKerja implements BisaDiatur {
         this.menitSelesai = menitSelesai;
         this.tombolMulaiKerja = tombolMulaiKerja;
         this.tombolSelesaiKerja = tombolSelesaiKerja;
+        this.telahBerlalu = telahBerlalu;
+        this.sisa = sisa;
     }
 
     @Override
@@ -60,6 +68,15 @@ public class PerekamWaktuKerja implements BisaDiatur {
 
         aturMulai();
         aturSelesai();
+
+        aturTelahBerlaluDanSisa();
+
+        app.perDetik(() -> {
+            LocalTime sekarang = LocalTime.now();
+
+            updateTelahBerlalu(sekarang);
+            updateSisa(sekarang);
+        });
     }
 
     private void setEnableMulai(boolean kondisi) {
@@ -92,10 +109,14 @@ public class PerekamWaktuKerja implements BisaDiatur {
 
         onChange(targetJamMulai, e -> {
             validasiSpinnerJam(targetJamMulai, targetMenitMulai);
+
+            updateSisa();
         }, skip);
 
         onChange(targetMenitMulai, e -> {
             validasiSpinnerMenit(targetJamMulai, targetMenitMulai);
+
+            updateSisa();
         }, skip);
     }
 
@@ -106,12 +127,14 @@ public class PerekamWaktuKerja implements BisaDiatur {
             int waktuSelesai = validasiSpinnerJam(targetJamSelesai, targetMenitSelesai);
 
             validasiTarget(waktuSelesai);
+            updateSisa();
         }, skip);
 
         onChange(targetMenitSelesai, e -> {
             int waktuSelesai = validasiSpinnerMenit(targetJamSelesai, targetMenitSelesai);
 
             validasiTarget(waktuSelesai);
+            updateSisa();
         }, skip);
     }
 
@@ -133,13 +156,14 @@ public class PerekamWaktuKerja implements BisaDiatur {
             int mulaiJam = (int) jamMulai.getValue();
             int mulaiMenit = (int) menitMulai.getValue();
 
+            LocalTime sekarang = LocalTime.now();
             if (mulaiJam + mulaiMenit == 0) {
-                LocalTime sekarang = LocalTime.now();
-
                 jamMulai.setValue(sekarang.getHour());
                 menitMulai.setValue(sekarang.getMinute());
             }
+            detikMulai = sekarang.getSecond();
 
+            updateSisa();
             setEnableMulai(false);
             setEnableSelesai(true);
             app.mulai();
@@ -179,10 +203,64 @@ public class PerekamWaktuKerja implements BisaDiatur {
 
         onChange(jamSelesai, e -> {
             validasiSpinnerJam(jamSelesai, menitSelesai);
+
+            updateSisa();
         }, skip);
 
         onChange(menitSelesai, e -> {
             validasiSpinnerMenit(jamSelesai, menitSelesai);
+
+            updateSisa();
         }, skip);
+    }
+
+    private void aturTelahBerlaluDanSisa() {
+        telahBerlalu.setText("Belum dimulai");
+        sisa.setText("Belum dimulai");
+    }
+
+    private void updateTelahBerlalu(LocalTime sekarang) {
+        int mulaiJam = (int) jamMulai.getValue();
+        int mulaiMenit = (int) menitMulai.getValue();
+
+        LocalTime mulai = LocalTime.of(mulaiJam, mulaiMenit, detikMulai);
+
+        long telahBerlaluWaktu = ChronoUnit.SECONDS.between(mulai, sekarang);
+
+        long telahBerlaluJam = telahBerlaluWaktu / 3600;
+        long telahBerlaluMenit = (telahBerlaluWaktu % 3600) / 60;
+        long telahBerlaluDetik = telahBerlaluWaktu % 60;
+
+        telahBerlalu.setText(
+                String.format("%02d:%02d:%02d", telahBerlaluJam, telahBerlaluMenit, telahBerlaluDetik)
+        );
+    }
+
+    private void updateSisa() {
+        int mulaiJam = (int) jamMulai.getValue();
+        int mulaiMenit = (int) menitMulai.getValue();
+
+        if (mulaiJam + mulaiMenit == 0) {
+            sisa.setText("Belum dimulai");
+        } else {
+            updateSisa(LocalTime.now());
+        }
+    }
+
+    private void updateSisa(LocalTime sekarang) {
+        int selesaiJam = (int) targetJamSelesai.getValue();
+        int selesaiMenit = (int) targetMenitSelesai.getValue();
+
+        LocalTime selesai = LocalTime.of(selesaiJam, selesaiMenit);
+
+        long sisaWaktu = ChronoUnit.SECONDS.between(sekarang, selesai);
+
+        long sisaJam = sisaWaktu / 3600;
+        long sisaMenit = (sisaWaktu % 3600) / 60;
+        long sisaDetik = sisaWaktu % 60;
+
+        String format = sisaDetik < 0 ? "-%02d:%02d:%02d" : "%02d:%02d:%02d";
+
+        sisa.setText(String.format(format, Math.abs(sisaJam), Math.abs(sisaMenit), Math.abs(sisaDetik)));
     }
 }
