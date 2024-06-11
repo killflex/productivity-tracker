@@ -13,28 +13,28 @@ import javax.swing.JTextField;
  *
  * @author MSI
  */
-public class PengaturanJam extends javax.swing.JFrame {
+public class PerekamWaktuKerja extends javax.swing.JFrame {
 
-    
-   
 
-    public PengaturanJam() {
+
+
+    public PerekamWaktuKerja() {
         initComponents();
-        
-         // Add ActionListener for jButton1 (tombol "Change")
+
+        // Add ActionListener for jButton1 (tombol "Change")
         Ubah1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ubah1ActionPerformed(evt);
             }
         });
-        
+
         Ubah2.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            Ubah2ActionPerformed(evt);
-        }
-    });
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ubah2ActionPerformed(evt);
+            }
+        });
     }
-     
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,22 +91,22 @@ public class PengaturanJam extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(367, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
         );
 
         Tujuan1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -140,67 +140,67 @@ public class PengaturanJam extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Tujuan2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(TargetJamKerja)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(inputTarget, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tujuan1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(PilWaktu1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(Ubah1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(PilWaktu2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(Ubah2)))
-                .addGap(44, 44, 44))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(Tujuan2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(25, 25, 25)
+                                                .addComponent(TargetJamKerja)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(inputTarget, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(Tujuan1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(PilWaktu1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(25, 25, 25)
+                                                .addComponent(Ubah1))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(PilWaktu2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(31, 31, 31)
+                                                .addComponent(Ubah2)))
+                                .addGap(44, 44, 44))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Tujuan1)
-                    .addComponent(Ubah1)
-                    .addComponent(PilWaktu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TargetJamKerja, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputTarget, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Edit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Tujuan2)
-                    .addComponent(Ubah2)
-                    .addComponent(PilWaktu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Tujuan1)
+                                        .addComponent(Ubah1)
+                                        .addComponent(PilWaktu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(TargetJamKerja, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inputTarget, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Edit))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(Tujuan2)
+                                        .addComponent(Ubah2)
+                                        .addComponent(PilWaktu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-   
-    
+
+
+
     private void inputTargetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTargetActionPerformed
-       try {
+        try {
             int newTargetHours = Integer.parseInt(inputTarget.getText());
             if (newTargetHours >= 0) {
                 JOptionPane.showMessageDialog(this, "Target set to " + newTargetHours + " hours.");
@@ -211,9 +211,9 @@ public class PengaturanJam extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_inputTargetActionPerformed
-    
+
     private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-      String newTargetHoursString = JOptionPane.showInputDialog(this, "Masukkan jam kerja baru:", "Edit Jam Kerja", JOptionPane.PLAIN_MESSAGE);
+        String newTargetHoursString = JOptionPane.showInputDialog(this, "Masukkan jam kerja baru:", "Edit Jam Kerja", JOptionPane.PLAIN_MESSAGE);
         try {
             int newTargetHours = Integer.parseInt(newTargetHoursString);
             if (newTargetHours >= 0) {
@@ -224,34 +224,34 @@ public class PengaturanJam extends javax.swing.JFrame {
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Masukkan angka yang valid.", "Error", JOptionPane.ERROR_MESSAGE);
-        }  
+        }
     }
-     
 
-private String getTextFromTextField(JTextField textField) {
-    return textField.getText();
-}
 
-private Object[] getComboBoxItems() {
-    String text = getTextFromTextField(PilWaktu1);
-    return new Object[]{text};
-    
+    private String getTextFromTextField(JTextField textField) {
+        return textField.getText();
+    }
+
+    private Object[] getComboBoxItems() {
+        String text = getTextFromTextField(PilWaktu1);
+        return new Object[]{text};
+
     }//GEN-LAST:event_EditActionPerformed
 
     private void Ubah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ubah1ActionPerformed
-    String selectedTime = (String) JOptionPane.showInputDialog(
-            this,
-            "Pilih waktu:",
-            "Pilih Waktu",
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            null,
-            PilWaktu1.getText());
+        String selectedTime = (String) JOptionPane.showInputDialog(
+                this,
+                "Pilih waktu:",
+                "Pilih Waktu",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                PilWaktu1.getText());
 
-    if (selectedTime != null) {
-        PilWaktu1.setText(selectedTime);
-        JOptionPane.showMessageDialog(this, "Waktu dipilih: " + selectedTime, "Pilih Waktu", JOptionPane.INFORMATION_MESSAGE);
-    }   
+        if (selectedTime != null) {
+            PilWaktu1.setText(selectedTime);
+            JOptionPane.showMessageDialog(this, "Waktu dipilih: " + selectedTime, "Pilih Waktu", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_Ubah1ActionPerformed
 
     private void PilWaktu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PilWaktu1ActionPerformed
@@ -262,28 +262,28 @@ private Object[] getComboBoxItems() {
         // TODO add your handling code here:
     }//GEN-LAST:event_Ubah2ActionPerformed
 
-    private void Change2ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-    String selectedTime = (String) JOptionPane.showInputDialog(
-        this,
-        "Pilih waktu:",
-        "Pilih Waktu",
-        JOptionPane.PLAIN_MESSAGE,
-        null,
-        null,
-        PilWaktu2.getText());
+    private void Change2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String selectedTime = (String) JOptionPane.showInputDialog(
+                this,
+                "Pilih waktu:",
+                "Pilih Waktu",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                PilWaktu2.getText());
 
-if (selectedTime != null) {
-    PilWaktu2.setText(selectedTime);
-    JOptionPane.showMessageDialog(this, "Waktu dipilih: " + selectedTime, "Pilih Waktu", JOptionPane.INFORMATION_MESSAGE);
-} 
+        if (selectedTime != null) {
+            PilWaktu2.setText(selectedTime);
+            JOptionPane.showMessageDialog(this, "Waktu dipilih: " + selectedTime, "Pilih Waktu", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
-    
+
     // Method to update worked hours display
     private void updateWorkedHoursDisplay() {
-        
+
     }
 
-   
+
     /**
      * @param args the command line arguments
      */
@@ -291,7 +291,7 @@ if (selectedTime != null) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -301,11 +301,11 @@ if (selectedTime != null) {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PengaturanJam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerekamWaktuKerja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -314,14 +314,14 @@ if (selectedTime != null) {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PengaturanJam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PerekamWaktuKerja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PengaturanJam().setVisible(true);
+            new PerekamWaktuKerja().setVisible(true);
         });
     }
 
@@ -341,5 +341,5 @@ if (selectedTime != null) {
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
-    
+
 }
