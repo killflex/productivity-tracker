@@ -15,6 +15,8 @@ public class Main {
                 "pbo_e081_kel4"
             );
 
+            Runtime.getRuntime().addShutdownHook(new Thread(Database::disconnect));
+
             terhubung = true;
         } catch (Exception e) {
             System.err.println("Tidak dapat terhubung ke database: " + e.getMessage());

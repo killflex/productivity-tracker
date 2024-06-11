@@ -59,6 +59,15 @@ public abstract class Database {
         statement = connection.createStatement();
     }
 
+    public static void disconnect() {
+        try {
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            //
+        }
+    }
+
     public static ResultSet query(String query) {
         try {
              return statement.executeQuery(query);
