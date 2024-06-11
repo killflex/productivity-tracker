@@ -123,5 +123,18 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
                 telahBerlalu,
                 sisa
         ));
+
+        komponen.add(new TingkatKeproduktivitasan(
+                this,
+                targetProduktifitasJam,
+                targetProduktifitasMenit,
+                persenProduktif,
+                persenTidakProduktif,
+                panelChart,
+                jamMulai,
+                menitMulai,
+                jamSelesai,
+                menitSelesai
+        ));
     }
 }
