@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static tugaspbo.SwingHelper.*;
+
 public class Produktivitas extends JFrame implements Mulai, Selesai {
     private JSpinner jamMulai;
     private JSpinner menitMulai;
@@ -26,18 +28,22 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
     private JButton tombolLaporanKemajuan;
     private JPanel mainPanel;
     private JPanel panelChart;
+    private Pengguna pengguna;
     private ArrayList<Object> komponen = new ArrayList<>();
     private ScheduledExecutorService scheduler;
     private ArrayList<Runnable> perDetik = new ArrayList<>();
     private ArrayList<Runnable> perTick = new ArrayList<>();
 
-    public Produktivitas() {
+    public Produktivitas(Pengguna pengguna) {
+        this.pengguna = pengguna;
+
         setTitle("Aplikasi Produktivitas");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(960, 420);
         setLocationRelativeTo(null);
         setContentPane(mainPanel);
 
+        setDataPengguna();
         daftarkanKomponen();
 
         for (Object k : komponen) {
@@ -91,6 +97,73 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
         }
     }
 
+    public void perbaruiCatatanHariIni() {
+        Catatan catatan = pengguna.catatanHariIni();
+        if (catatan == null) {
+            return;
+        }
+
+        catatan
+                .setTargetMulai(localTime(targetJamMulai, targetMenitMulai))
+                .setTargetSelesai(localTime(targetJamSelesai, targetMenitSelesai))
+                .setMulai(localTime(jamMulai, menitMulai))
+                .setSelesai(localTime(jamSelesai, menitSelesai))
+                .setTargetProduktifitas(localTime(targetProduktifitasJam, targetProduktifitasMenit))
+                .update();
+    }
+
+    private void daftarkanKomponen() {
+        komponen.add(new PerekamWaktuKerja(
+                this,
+                pengguna,
+                targetJamMulai,
+                targetMenitMulai,
+                targetJamSelesai,
+                targetMenitSelesai,
+                jamMulai,
+                menitMulai,
+                jamSelesai,
+                menitSelesai,
+                tombolMulaiKerja,
+                tombolSelesaiKerja,
+                telahBerlalu,
+                sisa,
+                targetProduktifitasJam,
+                targetProduktifitasMenit
+        ));
+
+        komponen.add(new TingkatKeproduktivitasan(
+                this,
+                pengguna,
+                targetProduktifitasJam,
+                targetProduktifitasMenit,
+                persenProduktif,
+                persenTidakProduktif,
+                panelChart,
+                jamMulai,
+                menitMulai,
+                jamSelesai,
+                menitSelesai
+        ));
+    }
+
+    private void setDataPengguna() {
+        targetJamMulai.setValue(pengguna.getTargetMulai().getHour());
+        targetMenitMulai.setValue(pengguna.getTargetMulai().getMinute());
+        targetJamSelesai.setValue(pengguna.getTargetSelesai().getHour());
+        targetMenitSelesai.setValue(pengguna.getTargetSelesai().getMinute());
+        targetProduktifitasJam.setValue(pengguna.getTargetProduktifitas().getHour());
+        targetProduktifitasMenit.setValue(pengguna.getTargetProduktifitas().getMinute());
+
+        Catatan catatan = pengguna.catatanHariIni();
+        if (catatan != null) {
+            jamMulai.setValue(catatan.getMulai().getHour());
+            menitMulai.setValue(catatan.getMulai().getMinute());
+            jamSelesai.setValue(catatan.getSelesai().getHour());
+            menitSelesai.setValue(catatan.getSelesai().getMinute());
+        }
+    }
+
     public void perDetik(Runnable runnable) {
         perDetik.add(runnable);
     }
@@ -105,36 +178,5 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
 
     public void error(String text) {
         JOptionPane.showMessageDialog(this, text, "Kesalahan", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void daftarkanKomponen() {
-        komponen.add(new PerekamWaktuKerja(
-                this,
-                targetJamMulai,
-                targetMenitMulai,
-                targetJamSelesai,
-                targetMenitSelesai,
-                jamMulai,
-                menitMulai,
-                jamSelesai,
-                menitSelesai,
-                tombolMulaiKerja,
-                tombolSelesaiKerja,
-                telahBerlalu,
-                sisa
-        ));
-
-        komponen.add(new TingkatKeproduktivitasan(
-                this,
-                targetProduktifitasJam,
-                targetProduktifitasMenit,
-                persenProduktif,
-                persenTidakProduktif,
-                panelChart,
-                jamMulai,
-                menitMulai,
-                jamSelesai,
-                menitSelesai
-        ));
     }
 }

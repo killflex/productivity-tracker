@@ -14,7 +14,7 @@ public class Main {
             );
 
             new Login((login, pengguna) -> {
-                new Produktivitas();
+                new Produktivitas(pengguna);
 
                 login.dispose();
             });

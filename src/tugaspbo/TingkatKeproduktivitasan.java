@@ -15,6 +15,7 @@ import static tugaspbo.SwingHelper.*;
 
 public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
     private Produktivitas app;
+    private Pengguna pengguna;
     private JSpinner targetProduktifitasJam;
     private JSpinner targetProduktifitasMenit;
     private JLabel persenProduktif;
@@ -31,6 +32,7 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
 
     public TingkatKeproduktivitasan(
             Produktivitas app,
+            Pengguna pengguna,
             JSpinner targetProduktifitasJam,
             JSpinner targetProduktifitasMenit,
             JLabel persenProduktif,
@@ -42,6 +44,7 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
             JSpinner menitSelesai
     ) {
         this.app = app;
+        this.pengguna = pengguna;
         this.targetProduktifitasJam = targetProduktifitasJam;
         this.targetProduktifitasMenit = targetProduktifitasMenit;
         this.persenProduktif = persenProduktif;
@@ -75,6 +78,15 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
     @Override
     public void selesai() {
         sedangBejalan = false;
+
+        String tingkatKeproduktifan = persenProduktif.getText()
+                .replace(",", ".")
+                .replace("%", "");
+
+        pengguna.catatanHariIni()
+                .setTingkatKeproduktifan(Double.parseDouble(tingkatKeproduktifan));
+
+        app.perbaruiCatatanHariIni();
     }
 
     private void updateMeteranProduktivitas() {
@@ -109,19 +121,23 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
         AtomicBoolean skip = new AtomicBoolean(false);
 
         onChange(targetProduktifitasJam, e -> {
-            validasiSpinnerJam(targetProduktifitasJam, targetProduktifitasMenit);
+            int targetProduktifitas = validasiSpinnerJam(targetProduktifitasJam, targetProduktifitasMenit);
 
             if (sedangBejalan) {
                 updateMeteranProduktivitas();
             }
+
+            pengguna.updateTargetProduktifitas(targetProduktifitas / 60, targetProduktifitas % 60);
         }, skip);
 
         onChange(targetProduktifitasMenit, e -> {
-            validasiSpinnerMenit(targetProduktifitasJam, targetProduktifitasMenit);
+            int targetProduktifitas = validasiSpinnerMenit(targetProduktifitasJam, targetProduktifitasMenit);
 
             if (sedangBejalan) {
                 updateMeteranProduktivitas();
             }
+
+            pengguna.updateTargetProduktifitas(targetProduktifitas / 60, targetProduktifitas % 60);
         }, skip);
     }
 
@@ -140,6 +156,13 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
         chart.setBorderPaint(abu);
 
         panelChart.add(chartPanel);
+
+        Catatan catatan = pengguna.catatanHariIni();
+        if (catatan != null) {
+            double produktif = catatan.getTingkatKeproduktifan();
+
+            updateChart(produktif, 100 - produktif);
+        }
     }
 
     private void updateChart(double produktif, double tidakProduktif) {
