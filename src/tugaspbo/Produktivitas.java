@@ -119,7 +119,9 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
                 jamSelesai,
                 menitSelesai,
                 tombolMulaiKerja,
-                tombolSelesaiKerja
+                tombolSelesaiKerja,
+                telahBerlalu,
+                sisa
         ));
     }
 }
