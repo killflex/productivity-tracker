@@ -3,6 +3,7 @@ package tugaspbo;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class SwingHelper {
@@ -77,5 +78,9 @@ public abstract class SwingHelper {
         int selesaiMenit = (int) spinnerMenit.getValue();
 
         return selesaiJam * 60 + selesaiMenit;
+    }
+
+    public static LocalTime localTime(JSpinner spinnerJam, JSpinner spinnerMenit) {
+        return LocalTime.of((int) spinnerJam.getValue(), (int) spinnerMenit.getValue());
     }
 }
