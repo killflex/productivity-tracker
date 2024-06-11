@@ -1,6 +1,10 @@
 package tugaspbo;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
+import java.util.Enumeration;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,6 +30,8 @@ public class Main {
         }
 
         if (terhubung) {
+            aturTampilan();
+
             try {
                 new Login((login, pengguna) -> {
                     try {
@@ -44,6 +50,37 @@ public class Main {
                 e.printStackTrace();
 
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private static void aturTampilan() {
+        Color abuMuda = new Color(133, 133, 122);
+        Color oranye = new Color(245, 158, 11);
+        Color oranyeGelap = new Color(217, 119, 6);
+        Color putih = new Color(250, 250, 250);
+
+        Border paddingBorder = BorderFactory.createEmptyBorder(8, 12, 8, 12);
+        Border borderAbuMuda = BorderFactory.createLineBorder(abuMuda);
+        Border inputBorder = BorderFactory.createCompoundBorder(borderAbuMuda, paddingBorder);
+        Border buttonBorder = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(oranyeGelap), paddingBorder);
+
+        UIManager.put("TextField.border", inputBorder);
+        UIManager.put("PasswordField.border", inputBorder);
+
+        UIManager.put("Button.border", buttonBorder);
+        UIManager.put("Button.background", oranye);
+        UIManager.put("Button.foreground", putih);
+        UIManager.put("Button.select", oranyeGelap);
+        UIManager.put("Button.disabledText", abuMuda);
+
+        Font font = new Font("Helvetica", Font.BOLD, 14);
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, font);
             }
         }
     }

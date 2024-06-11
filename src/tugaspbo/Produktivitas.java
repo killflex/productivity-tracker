@@ -1,6 +1,8 @@
 package tugaspbo;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,6 +30,7 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
     private JButton tombolLaporanKemajuan;
     private JPanel mainPanel;
     private JPanel panelChart;
+    private JLabel labelJudul;
     private Pengguna pengguna;
     private ArrayList<Object> komponen = new ArrayList<>();
     private ScheduledExecutorService scheduler;
@@ -42,6 +45,7 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
         setSize(960, 420);
         setLocationRelativeTo(null);
         setContentPane(mainPanel);
+        labelJudul.setText("Selamat datang " + pengguna.getNama());
 
         setDataPengguna();
         daftarkanKomponen();
