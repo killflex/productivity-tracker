@@ -110,6 +110,10 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
     private void daftarkanKomponen() {
         komponen.add(new PerekamWaktuKerja(
                 this,
+                targetJamMulai,
+                targetMenitMulai,
+                targetJamSelesai,
+                targetMenitSelesai,
                 jamMulai,
                 menitMulai,
                 jamSelesai,
