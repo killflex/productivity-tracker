@@ -10,12 +10,24 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalTime;
 
 public class LaporanKemajuanMingguan extends JDialog {
-    public LaporanKemajuanMingguan() {
+    private Produktivitas app;
+    private Pengguna pengguna;
+
+    public LaporanKemajuanMingguan(
+            Produktivitas app,
+            Pengguna pengguna
+    ) {
+        this.app = app;
+        this.pengguna = pengguna;
+
         setTitle("Laporan Kemajuan Mingguan");
         setSize(800, 300);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(app);
 
         DefaultCategoryDataset dataset = createDataset();
 
@@ -40,21 +52,35 @@ public class LaporanKemajuanMingguan extends JDialog {
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(27, "Persen", "1/24");
-        dataset.addValue(32, "Persen", "2/24");
-        dataset.addValue(40, "Persen", "3/24");
-        dataset.addValue(42, "Persen", "4/24");
-        dataset.addValue(37, "Persen", "5/24");
-        dataset.addValue(30, "Persen", "6/24");
-        dataset.addValue(25, "Persen", "7/24");
+        try {
+            ResultSet rs = Database.query(
+                    "SELECT AVG(tingkat_keproduktifan) AS tingkat_keproduktifan, " +
+                    "SEC_TO_TIME(AVG(TIME_TO_SEC(SUBTIME(selesai, mulai)))) AS durasi, " +
+                    "DATE_FORMAT(tanggal, '%u/%y') AS tanggal " +
+                    "FROM catatan " +
+                    "WHERE id_pengguna = " + pengguna.getId() + " " +
+                    "GROUP BY DATE_FORMAT(tanggal, '%u/%y')"
+            );
 
-        dataset.addValue(6.62, "Jam", "1/24");
-        dataset.addValue(7.15, "Jam", "2/24");
-        dataset.addValue(8.2, "Jam", "3/24");
-        dataset.addValue(7.52, "Jam", "4/24");
-        dataset.addValue(6.8, "Jam", "5/24");
-        dataset.addValue(6.3, "Jam", "6/24");
-        dataset.addValue(5.5, "Jam", "7/24");
+            while (rs.next()) {
+                dataset.addValue(
+                        rs.getDouble("tingkat_keproduktifan"),
+                        "Persen",
+                        rs.getString("tanggal")
+                );
+
+                LocalTime durasi = rs.getTime("durasi").toLocalTime();
+                double durasiJam = durasi.getHour() + durasi.getMinute() / 60 + durasi.getSecond() / 3600;
+
+                dataset.addValue(
+                        durasiJam,
+                        "Jam",
+                        rs.getString("tanggal")
+                );
+            }
+        } catch (SQLException e) {
+            app.error(e.getMessage());
+        }
 
         return dataset;
     }

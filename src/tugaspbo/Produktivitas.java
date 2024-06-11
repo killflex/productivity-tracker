@@ -145,6 +145,12 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
                 jamSelesai,
                 menitSelesai
         ));
+
+        komponen.add(new LaporanKemajuan(
+                this,
+                pengguna,
+                tombolLaporanKemajuan
+        ));
     }
 
     private void setDataPengguna() {

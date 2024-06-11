@@ -1,9 +1,11 @@
 package tugaspbo;
 
-import java.io.IOException;
+import javax.swing.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        boolean terhubung = false;
+
         try {
             Database.connect(
                 "localhost",
@@ -13,14 +15,34 @@ public class Main {
                 "pbo_e081_kel4"
             );
 
-            new Login((login, pengguna) -> {
-                new Produktivitas(pengguna);
-
-                login.dispose();
-            });
+            terhubung = true;
         } catch (Exception e) {
             System.err.println("Tidak dapat terhubung ke database: " + e.getMessage());
             e.printStackTrace();
+
+            Database.error(e.getMessage());
+        }
+
+        if (terhubung) {
+            try {
+                new Login((login, pengguna) -> {
+                    try {
+                        new Produktivitas(pengguna);
+
+                        login.dispose();
+                    } catch (Exception e) {
+                        System.err.println("Terjadi kesalahan: " + e.getMessage());
+                        e.printStackTrace();
+
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+                    }
+                });
+            } catch (Exception e) {
+                System.err.println("Terjadi kesalahan: " + e.getMessage());
+                e.printStackTrace();
+
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

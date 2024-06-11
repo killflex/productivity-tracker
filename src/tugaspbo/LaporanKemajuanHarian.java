@@ -9,12 +9,25 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalTime;
 
 public class LaporanKemajuanHarian extends JDialog {
-    public LaporanKemajuanHarian() {
+    private Produktivitas app;
+    private Pengguna pengguna;
+
+    public LaporanKemajuanHarian(
+            Produktivitas app,
+            Pengguna pengguna
+    ) {
+        this.app = app;
+        this.pengguna = pengguna;
+
         setTitle("Laporan Kemajuan Harian");
         setSize(800, 300);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(app);
 
         DefaultCategoryDataset dataset = createDataset();
 
@@ -31,6 +44,7 @@ public class LaporanKemajuanHarian extends JDialog {
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
 
         ChartPanel panel = new ChartPanel(chart);
+        panel.setPreferredSize(new Dimension(960, 420));
 
         setContentPane(panel);
         setVisible(true);
@@ -39,27 +53,31 @@ public class LaporanKemajuanHarian extends JDialog {
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(27, "Persen", "01/06/24");
-        dataset.addValue(32, "Persen", "02/06/24");
-        dataset.addValue(40, "Persen", "03/06/24");
-        dataset.addValue(42, "Persen", "04/06/24");
-        dataset.addValue(37, "Persen", "05/06/24");
-        dataset.addValue(30, "Persen", "06/06/24");
-        dataset.addValue(25, "Persen", "07/06/24");
-        dataset.addValue(27, "Persen", "08/06/24");
-        dataset.addValue(32, "Persen", "09/06/24");
-        dataset.addValue(40, "Persen", "10/06/24");
+        try {
+            ResultSet rs = Database.query(
+                    "SELECT tingkat_keproduktifan, SUBTIME(selesai, mulai) AS durasi, DATE_FORMAT(tanggal, '%d/%m/%y') AS tanggal " +
+                    "FROM catatan WHERE id_pengguna = " + pengguna.getId()
+            );
 
-        dataset.addValue(6.62, "Jam", "01/06/24");
-        dataset.addValue(7.15, "Jam", "02/06/24");
-        dataset.addValue(8.2, "Jam", "03/06/24");
-        dataset.addValue(7.52, "Jam", "04/06/24");
-        dataset.addValue(6.8, "Jam", "05/06/24");
-        dataset.addValue(6.3, "Jam", "06/06/24");
-        dataset.addValue(5.5, "Jam", "07/06/24");
-        dataset.addValue(6.62, "Jam", "08/06/24");
-        dataset.addValue(7.15, "Jam", "09/06/24");
-        dataset.addValue(8.2, "Jam", "10/06/24");
+            while (rs.next()) {
+                dataset.addValue(
+                        rs.getDouble("tingkat_keproduktifan"),
+                        "Persen",
+                        rs.getString("tanggal")
+                );
+
+                LocalTime durasi = rs.getTime("durasi").toLocalTime();
+                double durasiJam = durasi.getHour() + durasi.getMinute() / 60 + durasi.getSecond() / 3600;
+
+                dataset.addValue(
+                        durasiJam,
+                        "Jam",
+                        rs.getString("tanggal")
+                );
+            }
+        } catch (SQLException e) {
+            app.error(e.getMessage());
+        }
 
         return dataset;
     }
