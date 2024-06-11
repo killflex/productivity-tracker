@@ -1,9 +1,0 @@
-com.mycompany.productivitytracker.MainPage$4
-com.mycompany.productivitytracker.MainPage$5
-com.mycompany.productivitytracker.MainPage$2
-com.mycompany.productivitytracker.MainPage$3
-com.mycompany.productivitytracker.MainPage$8
-com.mycompany.productivitytracker.MainPage$6
-com.mycompany.productivitytracker.MainPage$7
-com.mycompany.productivitytracker.MainPage
-com.mycompany.productivitytracker.MainPage$1
