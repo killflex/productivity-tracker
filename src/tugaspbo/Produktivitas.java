@@ -1,6 +1,8 @@
 package tugaspbo;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSpinnerUI;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,6 +31,11 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
     private JPanel mainPanel;
     private JPanel panelChart;
     private JLabel labelJudul;
+    private JPanel panelMulai;
+    private JPanel panelSelesai;
+    private JPanel panelTargetMulai;
+    private JPanel panelTargetSelesai;
+    private JPanel panelTargetProduktifitas;
     private Pengguna pengguna;
     private ArrayList<Object> komponen = new ArrayList<>();
     private ScheduledExecutorService scheduler;
@@ -45,6 +52,7 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
         setContentPane(mainPanel);
         labelJudul.setText("Selamat datang " + pengguna.getNama());
 
+        aturTampilan();
         setDataPengguna();
         daftarkanKomponen();
 
@@ -172,6 +180,49 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
             jamSelesai.setValue(catatan.getSelesai().getHour());
             menitSelesai.setValue(catatan.getSelesai().getMinute());
         }
+    }
+
+    private void aturTampilan() {
+        aturTampilanSpinner(jamMulai, JTextField.RIGHT);
+        aturTampilanSpinner(menitMulai, JTextField.LEFT);
+        aturTampilanSpinner(jamSelesai, JTextField.RIGHT);
+        aturTampilanSpinner(menitSelesai, JTextField.LEFT);
+        aturTampilanSpinner(targetJamMulai, JTextField.RIGHT);
+        aturTampilanSpinner(targetMenitMulai, JTextField.LEFT);
+        aturTampilanSpinner(targetJamSelesai, JTextField.RIGHT);
+        aturTampilanSpinner(targetMenitSelesai, JTextField.LEFT);
+        aturTampilanSpinner(targetProduktifitasJam, JTextField.RIGHT);
+        aturTampilanSpinner(targetProduktifitasMenit, JTextField.LEFT);
+
+        aturTampilanPanelWaktu(panelMulai);
+        aturTampilanPanelWaktu(panelSelesai);
+        aturTampilanPanelWaktu(panelTargetMulai);
+        aturTampilanPanelWaktu(panelTargetSelesai);
+        aturTampilanPanelWaktu(panelTargetProduktifitas);
+    }
+
+    private void aturTampilanSpinner(JSpinner spinner, int alignment) {
+        spinner.setUI(new BasicSpinnerUI() {
+            protected Component createNextButton() {
+                return null;
+            }
+
+            protected Component createPreviousButton() {
+                return null;
+            }
+        });
+
+        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spinner, "00");
+
+        editor.getTextField().setHorizontalAlignment(alignment);
+        spinner.setEditor(editor);
+        spinner.setBorder(BorderFactory.createEmptyBorder());
+        spinner.setBackground(Color.WHITE);
+    }
+
+    private void aturTampilanPanelWaktu(JPanel panel) {
+        panel.setBorder(BorderFactory.createLineBorder(new Color(133, 133, 122)));
+        panel.setBackground(Color.WHITE);
     }
 
     private void lanjutkan() {
