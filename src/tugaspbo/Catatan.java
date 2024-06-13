@@ -54,7 +54,7 @@ public class Catatan {
         }
     }
 
-    public static Catatan baru(
+    public static void baru(
             Pengguna pengguna,
             LocalTime targetMulai,
             LocalTime targetSelesai,
@@ -75,11 +75,9 @@ public class Catatan {
                 (tingkatKeproduktifan == 0 ? "null" : tingkatKeproduktifan) + ", " +
                 "'" + Date.valueOf(tanggal) + "')"
         );
-
-        return cari(pengguna, tanggal);
     }
 
-    public static ArrayList<Catatan> cari(Pengguna pengguna) {
+    public static ArrayList<Catatan> cariAktif(Pengguna pengguna) {
         ResultSet resultSet = Database.query("SELECT * FROM catatan WHERE id_pengguna = " + pengguna.getId());
         ArrayList<Catatan> catatan = new ArrayList<>();
 
@@ -94,11 +92,12 @@ public class Catatan {
         return catatan;
     }
 
-    public static Catatan cari(Pengguna pengguna, LocalDate tanggal) {
+    public static Catatan cariAktif(Pengguna pengguna, LocalDate tanggal) {
         String tgl = tanggal.getYear() + "-" + tanggal.getMonthValue() + "-" + tanggal.getDayOfMonth();
 
         ResultSet resultSet = Database.query(
-                "SELECT * FROM catatan WHERE id_pengguna = " + pengguna.getId() + " and tanggal = '" + tgl + "'"
+                "SELECT * FROM catatan WHERE id_pengguna = " + pengguna.getId() +
+                " AND tanggal = '" + tgl + "' AND tingkat_keproduktifan IS NULL ORDER BY tanggal DESC LIMIT 1"
         );
 
         try {

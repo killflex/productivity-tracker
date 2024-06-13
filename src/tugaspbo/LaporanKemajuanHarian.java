@@ -55,8 +55,12 @@ public class LaporanKemajuanHarian extends JDialog {
 
         try {
             ResultSet rs = Database.query(
-                    "SELECT tingkat_keproduktifan, SUBTIME(selesai, mulai) AS durasi, DATE_FORMAT(tanggal, '%d/%m/%y') AS tanggal " +
-                    "FROM catatan WHERE id_pengguna = " + pengguna.getId()
+                    "SELECT AVG(tingkat_keproduktifan) AS tingkat_keproduktifan, " +
+                    "SEC_TO_TIME(AVG(TIME_TO_SEC(SUBTIME(selesai, mulai)))) AS durasi, " +
+                    "DATE_FORMAT(tanggal, '%d/%m/%y') AS tanggal " +
+                    "FROM catatan " +
+                    "WHERE id_pengguna = " + pengguna.getId() + " " +
+                    "GROUP BY DATE_FORMAT(tanggal, '%d/%m/%y')"
             );
 
             while (rs.next()) {

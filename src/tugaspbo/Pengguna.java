@@ -14,7 +14,7 @@ public class Pengguna {
     private LocalTime targetSelesai;
     private LocalTime targetProduktifitas;
     private ArrayList<Catatan> catatan = null;
-    private Catatan catatanHariIni = null;
+    private Catatan catatanSekarang = null;
 
     public Pengguna(
             int id,
@@ -74,20 +74,16 @@ public class Pengguna {
         return null;
     }
 
-    public ArrayList<Catatan> catatan() {
-        if (catatan == null) {
-            catatan = Catatan.cari(this);
+    public Catatan catatanSekarang() {
+        if (catatanSekarang == null) {
+            catatanSekarang = Catatan.cariAktif(this, LocalDate.now());
         }
 
-        return catatan;
+        return catatanSekarang;
     }
 
-    public Catatan catatanHariIni() {
-        if (catatanHariIni == null) {
-            catatanHariIni = Catatan.cari(this, LocalDate.now());
-        }
-
-        return catatanHariIni;
+    public void hapusCacheCatatanSekarang() {
+        catatanSekarang = null;
     }
 
     public void updateTargetMulai(int jam, int menit) {

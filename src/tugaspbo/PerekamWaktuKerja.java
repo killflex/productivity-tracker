@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package tugaspbo;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.*;
@@ -13,11 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static tugaspbo.SwingHelper.*;
 
-/**
- *
- * @author MSI
- */
-public class PerekamWaktuKerja implements BisaDiatur, Mulai {
+public class PerekamWaktuKerja implements BisaDiatur, Mulai, Selesai {
     private Produktivitas app;
     private Pengguna pengguna;
     private JSpinner targetJamMulai;
@@ -92,7 +83,10 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
 
     @Override
     public void mulai() {
-        if (pengguna.catatanHariIni() == null) {
+        jamSelesai.setValue(0);
+        menitSelesai.setValue(0);
+
+        if (pengguna.catatanSekarang() == null) {
             Catatan.baru(
                     pengguna,
                     localTime(targetJamMulai, targetMenitMulai),
@@ -104,6 +98,22 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
                     LocalDate.now()
             );
         }
+
+        detikMulai = LocalTime.now().getSecond();
+
+        setEnableMulai(false);
+        setEnableSelesai(true);
+    }
+
+    @Override
+    public void selesai() {
+        LocalTime sekarang = LocalTime.now();
+
+        jamSelesai.setValue(sekarang.getHour());
+        menitSelesai.setValue(sekarang.getMinute());
+
+        setEnableMulai(true);
+        setEnableSelesai(false);
     }
 
     private void setEnableMulai(boolean kondisi) {
@@ -140,7 +150,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
             updateSisa();
 
             pengguna.updateTargetMulai(waktuMulai / 60, waktuMulai % 60);
-            app.perbaruiCatatanHariIni();
+            app.perbaruiCatatanSekarang();
         }, skip);
 
         onChange(targetMenitMulai, e -> {
@@ -149,7 +159,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
             updateSisa();
 
             pengguna.updateTargetMulai(waktuMulai / 60, waktuMulai % 60);
-            app.perbaruiCatatanHariIni();
+            app.perbaruiCatatanSekarang();
         }, skip);
     }
 
@@ -163,7 +173,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
             updateSisa();
 
             pengguna.updateTargetSelesai(waktuSelesai / 60, waktuSelesai % 60);
-            app.perbaruiCatatanHariIni();
+            app.perbaruiCatatanSekarang();
         }, skip);
 
         onChange(targetMenitSelesai, e -> {
@@ -173,7 +183,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
             updateSisa();
 
             pengguna.updateTargetSelesai(waktuSelesai / 60, waktuSelesai % 60);
-            app.perbaruiCatatanHariIni();
+            app.perbaruiCatatanSekarang();
         }, skip);
     }
 
@@ -192,19 +202,10 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
                 return;
             }
 
-            int mulaiJam = (int) jamMulai.getValue();
-            int mulaiMenit = (int) menitMulai.getValue();
-
             LocalTime sekarang = LocalTime.now();
-            if (mulaiJam + mulaiMenit == 0) {
-                jamMulai.setValue(sekarang.getHour());
-                menitMulai.setValue(sekarang.getMinute());
-            }
-            detikMulai = sekarang.getSecond();
+            jamMulai.setValue(sekarang.getHour());
+            menitMulai.setValue(sekarang.getMinute());
 
-            updateSisa();
-            setEnableMulai(false);
-            setEnableSelesai(true);
             app.mulai();
         }, skip);
 
@@ -230,13 +231,6 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
                 return;
             }
 
-            LocalTime sekarang = LocalTime.now();
-
-            jamSelesai.setValue(sekarang.getHour());
-            menitSelesai.setValue(sekarang.getMinute());
-
-            setEnableMulai(true);
-            setEnableSelesai(false);
             app.selesai();
         }, skip);
 
@@ -254,7 +248,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
     }
 
     private void aturTelahBerlaluDanSisa() {
-        Catatan catatan = pengguna.catatanHariIni();
+        Catatan catatan = pengguna.catatanSekarang();
 
         if (catatan == null) {
             telahBerlalu.setText("Belum dimulai");
@@ -273,9 +267,11 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
 
         LocalTime perbandingan = sekarang;
 
-        if (pengguna.catatanHariIni() != null) {
-            LocalTime selesai = pengguna.catatanHariIni().getSelesai();
+        Catatan catatan = pengguna.catatanSekarang();
+        if (catatan != null) {
+            LocalTime selesai = catatan.getSelesai();
 
+            System.out.println(selesai.getHour() + selesai.getMinute() + selesai.getSecond());
             if (selesai.getHour() + selesai.getMinute() + selesai.getSecond() > 0) {
                 perbandingan = selesai;
             }
@@ -288,7 +284,7 @@ public class PerekamWaktuKerja implements BisaDiatur, Mulai {
         long telahBerlaluDetik = telahBerlaluWaktu % 60;
 
         telahBerlalu.setText(
-                String.format("%02d:%02d:%02d", telahBerlaluJam, telahBerlaluMenit, telahBerlaluDetik)
+                String.format("%02d:%02d:%02d", Math.abs(telahBerlaluJam), Math.abs(telahBerlaluMenit), Math.abs(telahBerlaluDetik))
         );
     }
 

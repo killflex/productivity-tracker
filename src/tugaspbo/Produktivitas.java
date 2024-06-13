@@ -1,8 +1,6 @@
 package tugaspbo;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -56,6 +54,8 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
             }
         }
 
+        lanjutkan();
+
         setVisible(true);
     }
 
@@ -101,8 +101,8 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
         }
     }
 
-    public void perbaruiCatatanHariIni() {
-        Catatan catatan = pengguna.catatanHariIni();
+    public void perbaruiCatatanSekarang() {
+        Catatan catatan = pengguna.catatanSekarang();
         if (catatan == null) {
             return;
         }
@@ -165,12 +165,19 @@ public class Produktivitas extends JFrame implements Mulai, Selesai {
         targetProduktifitasJam.setValue(pengguna.getTargetProduktifitas().getHour());
         targetProduktifitasMenit.setValue(pengguna.getTargetProduktifitas().getMinute());
 
-        Catatan catatan = pengguna.catatanHariIni();
+        Catatan catatan = pengguna.catatanSekarang();
         if (catatan != null) {
             jamMulai.setValue(catatan.getMulai().getHour());
             menitMulai.setValue(catatan.getMulai().getMinute());
             jamSelesai.setValue(catatan.getSelesai().getHour());
             menitSelesai.setValue(catatan.getSelesai().getMinute());
+        }
+    }
+
+    private void lanjutkan() {
+        Catatan catatan = pengguna.catatanSekarang();
+        if (catatan != null) {
+            this.mulai();
         }
     }
 

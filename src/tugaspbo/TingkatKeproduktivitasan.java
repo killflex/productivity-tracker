@@ -83,10 +83,11 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
                 .replace(",", ".")
                 .replace("%", "");
 
-        pengguna.catatanHariIni()
+        pengguna.catatanSekarang()
                 .setTingkatKeproduktifan(Double.parseDouble(tingkatKeproduktifan));
 
-        app.perbaruiCatatanHariIni();
+        app.perbaruiCatatanSekarang();
+        pengguna.hapusCacheCatatanSekarang();
     }
 
     private void updateMeteranProduktivitas() {
@@ -157,7 +158,7 @@ public class TingkatKeproduktivitasan implements BisaDiatur, Mulai, Selesai {
 
         panelChart.add(chartPanel);
 
-        Catatan catatan = pengguna.catatanHariIni();
+        Catatan catatan = pengguna.catatanSekarang();
         if (catatan != null) {
             double produktif = catatan.getTingkatKeproduktifan();
 

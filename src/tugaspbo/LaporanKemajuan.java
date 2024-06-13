@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class LaporanKemajuan extends JDialog implements BisaDiatur {
-
     private JPanel mainPanel;
     private JButton tombolHarian;
     private JButton tombolMingguan;
