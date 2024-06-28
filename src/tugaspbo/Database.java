@@ -1,7 +1,6 @@
 package tugaspbo;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -32,8 +31,8 @@ public abstract class Database {
                     connection = DriverManager.getConnection(urlTanpaDB, username, password);
 
                     statement = connection.createStatement();
-                    statement.execute("CREATE DATABASE " + database);
-                    statement.execute("USE " + database);
+                    statement.execute("CREATE DATABASE `" + database + "`");
+                    statement.execute("USE `" + database + "`");
 
                     ArrayList<String> sql = schema();
 
@@ -127,7 +126,7 @@ public abstract class Database {
                 "    FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna`(`id`)\n" +
                 ")");
 
-        schema.add("INSERT INTO `pengguna` (`nama`, `password`, `target_mulai`, `target_selesai`, `target_produktifitas`) VALUES ('nathan', '123', '08:30:00', '16:30:00', '07:00:00')");
+        schema.add("INSERT INTO `pengguna` (`nama`, `password`, `target_mulai`, `target_selesai`, `target_produktifitas`) VALUES ('pengguna', '123', '08:30:00', '16:30:00', '07:00:00')");
 
         schema.add("INSERT INTO `catatan` (`id_pengguna`, `target_mulai`, `target_selesai`, `mulai`, `selesai`, `target_produktifitas`, `tingkat_keproduktifan`, `tanggal`) VALUES\n" +
                 "(1, '08:00:00', '16:00:00', '08:12:00', '16:07:00', '07:00:00', 87.50911553286801, '2024-05-01'),\n" +

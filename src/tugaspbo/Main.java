@@ -16,7 +16,7 @@ public class Main {
                 "3306",
                 "root",
                 "",
-                "pbo_e081_kel4"
+                "pbo_e081_kelompok-4_productivity-tracker"
             );
 
             Runtime.getRuntime().addShutdownHook(new Thread(Database::disconnect));

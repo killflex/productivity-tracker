@@ -22,3 +22,8 @@ diperlukan untuk mencapai tujuan.
 berlangsung beserta statistik dan grafiknya.
 7. Laporan Kemajuan. Fitur ini menampilkan laporan sesi kerja berdasarkan data yang telah
 disimpan/diperbarui.
+
+# Akun Bawaan:
+Nama: pengguna
+<br>
+Password: 123
